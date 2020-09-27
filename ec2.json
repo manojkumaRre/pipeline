@@ -25,11 +25,17 @@
     "JenkinsMaster": {
       "Type": "AWS::EC2::Instance",
       "Properties": {
+
+
+        "NetworkInterfaces":[{
+                "AssociatePublicIpAddress":true,
+                "DeviceIndex":"0",
+                "GroupSet":[{"Ref":"Jenkins-CICD-SG"}],
+                "SubnetId":{"Ref":"SubnetID"}
+        }
+        ],
         "ImageId": {
           "Ref": "ImageId"
-        },
-        "SubnetId" : {
-        "Ref": "SubnetID"
         },
         "InstanceType": {
           "Ref": "InstanceTypeParameter"
@@ -37,15 +43,6 @@
         "KeyName": {
           "Ref": "myKey"
         },
-        "SecurityGroupIds": [
-                    {
-                        "Fn::GetAtt": [
-                            "EC2SecGroup",
-                            "GroupId"
-                        ]
-                    }
-                ],
-
         "Tags": [
           {
             "Key": "Name",
@@ -53,21 +50,17 @@
           }
         ],
 
-        "EC2SecGroup": {
-        "Type": "AWS::EC2::SecurityGroup",
-        "Properties": {
-        "GroupDescription": "Only SSH Access",
-        "VpcId": "VPC",
-        "SecurityGroupIngress": [
-          {
-            "IpProtocol": "tcp",
-            "FromPort": 22,
-            "ToPort": 22,
-            "CidrIp": "0.0.0.0/0"
-          }
-        ]
-      }
-    },
+      "Jenkins-CICD-SG":{
+        "Type":"AWS::EC2::SecurityGroup",
+        "Properties":{
+          "GroupDescription":"securitygroup1",
+          "VpcId":{"Ref":"vpc1"},
+          "SecurityGroupIngress":[
+            {"IpProtocol":"tcp", "FromPort":"22", "ToPort":"22", "CidrIp":"0.0.0.0/0"}
+            ],
+        "Tags":[{"Key":"Name","Value":"Jenkins-CICD-SG"}]
+        }
+      },
 
          "UserData": {
                     "Fn::Base64": {

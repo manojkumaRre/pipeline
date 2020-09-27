@@ -3,7 +3,7 @@ pipeline {
     stages{
         stage('install git') {
         try{
-         sh"sudo yum install git -y"
+         sh 'sudo yum install git -y'
         }
         catch(err)
         {
@@ -12,7 +12,7 @@ pipeline {
         }
         stage('git clone) {
         try{
-        sh"git clone https://github.com/manojkumaRre/pipeline.git"
+        sh 'git clone https://github.com/manojkumaRre/pipeline.git'
         }
         catch(err)
         {

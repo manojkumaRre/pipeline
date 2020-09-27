@@ -1,15 +1,45 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "Template to spin up VM",
+  "Parameters": {
+    "myKey": {
+      "Type": "String"
+    },
+    "WebServerSecurityGroup": {
+      "Type": "String"
+    },
+    "SubnetID": {
+    "Type": "String"
+    },
+    "InstanceTypeParameter": {
+      "Type": "String",
+      "Default": "t2.micro",
+      "AllowedValues": [
+        "t2.micro",
+        "t3.small"
+      ]
+    },
+    "ImageId": {
+      "Type": "String",
+      "Default": "ami-0e01ce4ee18447327"
+    }
+  },
   "Resources": {
     "JenkinsMaster": {
       "Type": "AWS::EC2::Instance",
       "Properties": {
-        "ImageId": "ami-00a6527cca03025b7",
-        "SubnetId" :  "subnet-0085b5c56fbce86b9",
-        "InstanceType": "t2.micro",
-        "KeyName": "jenkins1",
-        "SecurityGroups":"sg-019d944a45540e10d",
+        "ImageId": {
+          "Ref": "ImageId"
+        },
+        "SubnetId" : {
+        "Ref": "SubnetID"
+        },
+        "InstanceType": {
+          "Ref": "InstanceTypeParameter"
+        },
+        "KeyName": {
+          "Ref": "myKey"
+        },
 
          "UserData": {
                     "Fn::Base64": {
@@ -37,7 +67,17 @@
                             ]
                         ]
                     }
-                }
+                },
+        "SecurityGroupIds": [
+          {
+            "Fn::Join": [
+              ",",
+              {
+                "Ref": "WebServerSecurityGroup"
+              }
+            ]
+          }
+        ]
       }
     }
 

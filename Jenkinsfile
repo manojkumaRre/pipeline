@@ -3,7 +3,8 @@ pipeline {
     stages{
         stage('Deploy Cloudformation') {
             steps {
-                    sh ' aws cloudformation create-stack --stack-name "test-cicd-jenkins" --template-body file://ec2.json  --region 'ap-south-1' '
+                script
+                { sh ' aws cloudformation create-stack --stack-name "test-cicd-jenkins" --template-body file://ec2.json  --region 'ap-south-1' '}
             }
 
         }

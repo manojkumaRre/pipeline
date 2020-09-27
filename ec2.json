@@ -28,9 +28,7 @@
     "JenkinsMaster": {
       "Type": "AWS::EC2::Instance",
       "Properties": {
-
-
-        "NetworkInterfaces":[{
+          "NetworkInterfaces":[{
                 "AssociatePublicIpAddress":true,
                 "DeviceIndex":"0",
                 "GroupSet":[{"Ref":"Jenkins-CICD-SG"}],
@@ -52,18 +50,6 @@
             "Value": "CICD-Pipeline-Server"
           }
         ],
-
-      "Jenkins-CICD-SG":{
-        "Type":"AWS::EC2::SecurityGroup",
-        "Properties":{
-          "GroupDescription":"securitygroup1",
-          "VpcId":{"Ref":"VPCID"},
-          "SecurityGroupIngress":[
-            {"IpProtocol":"tcp", "FromPort":"22", "ToPort":"22", "CidrIp":"0.0.0.0/0"}
-            ],
-        "Tags":[{"Key":"Name","Value":"Jenkins-CICD-SG"}]
-        }
-      },
 
          "UserData": {
                     "Fn::Base64": {
@@ -93,7 +79,18 @@
                     }
                 }
       }
-    }
+    },
+        "Jenkins-CICD-SG":{
+        "Type":"AWS::EC2::SecurityGroup",
+        "Properties":{
+          "GroupDescription":"securitygroup1",
+          "VpcId":{"Ref":"VPCID"},
+          "SecurityGroupIngress":[
+            {"IpProtocol":"tcp", "FromPort":"22", "ToPort":"22", "CidrIp":"0.0.0.0/0"}
+            ],
+        "Tags":[{"Key":"Name","Value":"Jenkins-CICD-SG"}]
+        }
+      }
 
   },
   "Outputs": {

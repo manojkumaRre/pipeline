@@ -38,8 +38,13 @@
           "Ref": "myKey"
         },
         "SecurityGroupIds": [
-          "EC2SecGroup.GroupId"
-        ],
+                    {
+                        "Fn::GetAtt": [
+                            "EC2SecGroup",
+                            "GroupId"
+                        ]
+                    }
+                ],
 
         "Tags": [
           {

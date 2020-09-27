@@ -31,7 +31,7 @@
           "NetworkInterfaces":[{
                 "AssociatePublicIpAddress":true,
                 "DeviceIndex":"0",
-                "GroupSet":[{"Ref":"CICD-SG"}],
+                "GroupSet":[{"Ref":"CICDSG"}],
                 "SubnetId":{"Ref":"SubnetID"}
         }
         ],

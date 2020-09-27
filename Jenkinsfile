@@ -4,13 +4,10 @@ pipeline {
 
 	      stage('Deploy Cloudformation') {
 			steps{
-            		try {
-                 			sh"/usr/local/bin/awscloudformation create-stack --stackname test-cicd-jenkins --template-body file://ec2.json  --region 'ap-south-1'"
-            }
-catch(err)
-{'echo cloudformation creation failed'
-        }
-    }
+                 			sh"/usr/local/bin/awscloudformation create-stack --stackname test-cicd-jenkinss --template-body file://ec2.json  --region 'ap-south-1'"
+            }    
 }
+
+
 }
 }

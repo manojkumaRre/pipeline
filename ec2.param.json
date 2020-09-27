@@ -3,10 +3,6 @@
         "ParameterValue": "jenkins1"
     },
     {
-        "ParameterKey": "WebServerSecurityGroup",
-        "ParameterValue": "sg-019d944a45540e10d"
-    },
-    {
         "ParameterKey": "SubnetID",
         "ParameterValue": "subnet-0085b5c56fbce86b9"
     },

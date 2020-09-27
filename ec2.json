@@ -5,9 +5,6 @@
     "myKey": {
       "Type": "String"
     },
-    "WebServerSecurityGroup": {
-      "Type": "List"
-    },
     "SubnetID": {
     "Type": "String"
     },
@@ -40,9 +37,32 @@
         "KeyName": {
           "Ref": "myKey"
         },
-        "SecurityGroups": {
-          "Ref": "WebServerSecurityGroup"
-        },
+        "SecurityGroupIds": [
+          "EC2SecGroup.GroupId"
+        ],
+
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "CICD-Pipeline-Server"
+          }
+        ],
+
+        "EC2SecGroup": {
+        "Type": "AWS::EC2::SecurityGroup",
+        "Properties": {
+        "GroupDescription": "Only SSH Access",
+        "VpcId": "VPC",
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 22,
+            "ToPort": 22,
+            "CidrIp": "0.0.0.0/0"
+          }
+        ]
+      }
+    },
 
          "UserData": {
                     "Fn::Base64": {

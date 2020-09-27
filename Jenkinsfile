@@ -10,7 +10,7 @@ pipeline {
          sh"echo git installation failed"
         }
         }
-        stage('git clone) {
+        stage('git clone') {
         try{
         sh 'git clone https://github.com/manojkumaRre/pipeline.git'
         }

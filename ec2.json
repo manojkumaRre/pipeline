@@ -5,6 +5,9 @@
     "myKey": {
       "Type": "String"
     },
+    "VPCID": {
+      "Type": "String"
+    },
     "SubnetID": {
     "Type": "String"
     },
@@ -54,7 +57,7 @@
         "Type":"AWS::EC2::SecurityGroup",
         "Properties":{
           "GroupDescription":"securitygroup1",
-          "VpcId":{"Ref":"vpc1"},
+          "VpcId":{"Ref":"VPCID"},
           "SecurityGroupIngress":[
             {"IpProtocol":"tcp", "FromPort":"22", "ToPort":"22", "CidrIp":"0.0.0.0/0"}
             ],

@@ -13,5 +13,9 @@
     {
         "ParameterKey": "ImageId",
         "ParameterValue": "ami-00a6527cca03025b7"
+    },
+    {
+        "ParameterKey": "VPCID",
+        "ParameterValue": "vpc-0a4ac3e8dea752350"
     }
 ]

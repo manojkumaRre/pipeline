@@ -40,6 +40,9 @@
         "KeyName": {
           "Ref": "myKey"
         },
+        "SecurityGroups": {
+          "Ref": "WebServerSecurityGroup"
+        },
 
          "UserData": {
                     "Fn::Base64": {
@@ -67,17 +70,7 @@
                             ]
                         ]
                     }
-                },
-        "SecurityGroupIds": [
-          {
-            "Fn::Join": [
-              ",",
-              {
-                "Ref": "WebServerSecurityGroup"
-              }
-            ]
-          }
-        ]
+                }
       }
     }
 

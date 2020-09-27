@@ -1,0 +1,51 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Template to spin up VM",
+  "Resources": {
+    "JenkinsMaster": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "ImageId": "ami-00a6527cca03025b7",
+        "SubnetId" :  "subnet-0085b5c56fbce86b9",
+        "InstanceType": "t2.micro",
+        "KeyName": "jenkins1",
+        "SecurityGroups":"sg-019d944a45540e10d",
+
+         "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "", [
+                                "#!/bin/bash -xe\n",   
+                                "# Install Jenkins and Java8\n",
+                                "sudo yum install wget -y\n",
+                                "sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo\n",
+                                "sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key\n",
+                                "sudo yum install java-1.8.0-openjdk -y\n",
+                                "sudo yum update -y\n",
+                                "sudo yum install jenkins -y\n",        
+
+                                "sudo service jenkins start\n",
+                                "sudo chkconfig jenkins on\n",          
+
+                                "# Wait 30 seconds to allow Jenkins to startup\n",
+                                "echo \"Waiting 30 seconds for Jenkins to start.....\"\n",
+                                "sleep 30\n",                  
+
+                                "# Restart Jenkins Service\n",
+                                "/etc/init.d/jenkins restart\n"
+                                
+                            ]
+                        ]
+                    }
+                }
+      }
+    }
+
+  },
+  "Outputs": {
+    "PublicIP": {
+      "Description": "EC2 public",
+      "Value": "EC2Instance1.PublicIp"
+    }
+  }
+}
